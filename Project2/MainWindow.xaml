@@ -15,8 +15,35 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="groupBox" Header="GroupBox" Margin="0" VerticalAlignment="Top"/>
-        <GroupBox x:Name="groupBox1" Header="GroupBox" Margin="0" VerticalAlignment="Top" Grid.Column="1"/>
+        <GroupBox Header="Effluent" VerticalAlignment="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock>Flow, m<Run Typography.Variants="Superscript">3</Run>/3</TextBlock>
+                <TextBox Grid.Column="1" Margin="4,2,0,2"></TextBox>
+                <TextBlock Grid.Row="1">Ultimate BOD at 25℃, kg/d</TextBlock>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="4,2,0,2"></TextBox>
+                <TextBlock Grid.Row="2">DO, mg/L</TextBlock>
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="4,2,0,2"></TextBox>
+                <TextBlock Grid.Row="3">Temperature, ℃</TextBlock>
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="4,2,0,2"></TextBox>
+                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0">
+                    <TextBlock>K at 20℃, d</TextBlock>
+                    <TextBlock FontSize="6" Margin="0,0,0,6">-1</TextBlock>
+                </StackPanel>
+                <TextBox Grid.Row="4" Grid.Column="1" Margin="4,2,0,2"></TextBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupBox1" Header="River" Margin="0" VerticalAlignment="Top" Grid.Column="1"/>
 
     </Grid>
 </Window>
