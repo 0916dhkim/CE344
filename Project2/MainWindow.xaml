@@ -15,18 +15,18 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <GroupBox Header="Effluent" VerticalAlignment="Top">
+        <GroupBox Header="Effluent">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock>Flow, m<Run Typography.Variants="Superscript">3</Run>/3</TextBlock>
                 <TextBox Grid.Column="1" Margin="4,2,0,2"></TextBox>
@@ -43,20 +43,20 @@
                 <TextBox Grid.Row="4" Grid.Column="1" Margin="4,2,0,2"></TextBox>
             </Grid>
         </GroupBox>
-        <GroupBox x:Name="groupBox1" Header="River" Margin="0" VerticalAlignment="Top" Grid.Column="1">
+        <GroupBox x:Name="groupBox1" Header="River" Margin="0" Grid.Column="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock>Flow, m<Run Typography.Variants="Superscript">3</Run>/3</TextBlock>
                 <TextBox Grid.Column="1" Margin="4,2,0,2"></TextBox>
