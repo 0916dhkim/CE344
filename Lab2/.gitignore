@@ -1,4 +1,5 @@
 # Ignore everything except tex files and this.
 *
 !*.tex
+!*.png
 !.gitignore
