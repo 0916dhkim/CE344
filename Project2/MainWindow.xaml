@@ -3,77 +3,143 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:winformchart="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
         xmlns:local="clr-namespace:Project2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="148*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <GroupBox Header="Effluent">
-            <Grid>
+        Title="DO Sag Curve Calculator">
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <GroupBox Header="Effluent" x:Name="EffluentGroupBox">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock>Flow, m<Run Typography.Variants="Superscript">3</Run>/3</TextBlock>
+                    <TextBox x:Name="EffluentFlow" Grid.Column="1" Margin="4,2,0,2" Text="{Binding Path=Effluent.Flow}"/>
+                    <TextBlock Grid.Row="1">Ultimate BOD at 25℃, kg/d</TextBlock>
+                    <TextBox x:Name="EffluentUltimateBOD" Grid.Row="1" Grid.Column="1" Margin="4,2,0,2" Text="{Binding Path=Effluent.UltimateBOD}"></TextBox>
+                    <TextBlock Grid.Row="2">DO, mg/L</TextBlock>
+                    <TextBox x:Name="EffluentDO" Grid.Row="2" Grid.Column="1" Margin="4,2,0,2" Text="{Binding Path=Effluent.DO}"></TextBox>
+                    <TextBlock Grid.Row="3">Temperature, ℃</TextBlock>
+                    <TextBox x:Name="EffluentTemperature" Grid.Row="3" Grid.Column="1" Margin="4,2,0,2" Text="{Binding Path=Effluent.Temperature}"></TextBox>
+                    <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0">
+                        <TextBlock>K at 20℃, d</TextBlock>
+                        <TextBlock FontSize="6" Margin="0,0,0,6">-1</TextBlock>
+                    </StackPanel>
+                    <TextBox x:Name="EffluentK" Grid.Row="4" Grid.Column="1" Margin="4,2,0,2" Text="{Binding Path=Effluent.K}"></TextBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox x:Name="RiverGroupBox" Header="River" Margin="0" Grid.Column="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock>Flow, m<Run Typography.Variants="Superscript">3</Run>/3</TextBlock>
+                    <TextBox x:Name="RiverFlow" Grid.Column="1" Margin="4,2,0,2" Text="{Binding Path=River.Flow}"></TextBox>
+                    <TextBlock Grid.Row="1">Ultimate BOD at 25℃, kg/d</TextBlock>
+                    <TextBox x:Name="RiverUltimateBOD" Grid.Row="1" Grid.Column="1" Margin="4,2,0,2" Text="{Binding Path=River.UltimateBOD}"></TextBox>
+                    <TextBlock Grid.Row="2">DO, mg/L</TextBlock>
+                    <TextBox x:Name="RiverDO" Grid.Row="2" Grid.Column="1" Margin="4,2,0,2" Text="{Binding Path=River.DO}"></TextBox>
+                    <TextBlock Grid.Row="3">Temperature, ℃</TextBlock>
+                    <TextBox x:Name="RiverTemperature" Grid.Row="3" Grid.Column="1" Margin="4,2,0,2" Text="{Binding Path=River.Temperature}"></TextBox>
+                    <TextBlock Grid.Row="4" Grid.Column="0">Speed, m/s</TextBlock>
+                    <TextBox x:Name="RiverSpeed" Grid.Row="4" Grid.Column="1" Margin="4,2,0,2" Text="{Binding Path=River.Speed}"></TextBox>
+                    <TextBlock Grid.Row="5" Grid.Column="0">Average depth, m</TextBlock>
+                    <TextBox x:Name="RiverAverageDepth" Grid.Row="5" Grid.Column="1" Margin="4,2,0,2" Text="{Binding Path=River.AverageDepth}"></TextBox>
+                    <TextBlock Grid.Row="6" Grid.Column="0">Bed-activity coefficient</TextBlock>
+                    <TextBox x:Name="RiverBedActivityCoefficient" Grid.Row="6" Grid.Column="1" Margin="4,2,0,2" Text="{Binding Path=River.BedActivityCoefficient}"></TextBox>
+                </Grid>
+            </GroupBox>
+            <Button Content="Calculate" Grid.Column="1" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" Height="25" Width="75" Margin="0,20,20,20" Click="PlotFigure"/>
+            <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock>Flow, m<Run Typography.Variants="Superscript">3</Run>/3</TextBlock>
-                <TextBox x:Name="EffluentFlow" Grid.Column="1" Margin="4,2,0,2"></TextBox>
-                <TextBlock Grid.Row="1">Ultimate BOD at 25℃, kg/d</TextBlock>
-                <TextBox x:Name="EffluentUltimateBOD" Grid.Row="1" Grid.Column="1" Margin="4,2,0,2"></TextBox>
-                <TextBlock Grid.Row="2">DO, mg/L</TextBlock>
-                <TextBox x:Name="EffluentDO" Grid.Row="2" Grid.Column="1" Margin="4,2,0,2"></TextBox>
-                <TextBlock Grid.Row="3">Temperature, ℃</TextBlock>
-                <TextBox x:Name="EffluentTemperature" Grid.Row="3" Grid.Column="1" Margin="4,2,0,2"></TextBox>
-                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0">
-                    <TextBlock>K at 20℃, d</TextBlock>
-                    <TextBlock FontSize="6" Margin="0,0,0,6">-1</TextBlock>
-                </StackPanel>
-                <TextBox x:Name="EffluentK" Grid.Row="4" Grid.Column="1" Margin="4,2,0,2"></TextBox>
+                <WindowsFormsHost Grid.Column="0" Grid.Row="0" Margin="80,0,0,0" Height="600">
+                    <winformchart:Chart x:Name="ResultFigure" BackColor="ControlDark">
+                        <winformchart:Chart.Titles>
+                            <winformchart:Title Text="DO Sag Curve"/>
+                        </winformchart:Chart.Titles>
+                        <winformchart:Chart.Series>
+                            <winformchart:Series Name="sag" ChartType="Point" ChartArea="sag"/>
+                            <winformchart:Series Name="sagcurve" ChartType="Spline" ChartArea="sag"/>
+                        </winformchart:Chart.Series>
+                        <winformchart:Chart.ChartAreas>
+                            <winformchart:ChartArea Name="sag"></winformchart:ChartArea>
+                        </winformchart:Chart.ChartAreas>
+                    </winformchart:Chart>
+                </WindowsFormsHost>
+                <GroupBox Header="Summary" x:Name="SummaryGroupBox" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Width="200" Height="Auto" VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                            <TextBlock>K</TextBlock>
+                            <TextBlock FontSize="6" Margin="0,6,0,0">d</TextBlock>
+                            <TextBlock>, d</TextBlock>
+                            <TextBlock FontSize="6" Margin="0,0,0,6">-1</TextBlock>
+                        </StackPanel>
+                        <TextBox x:Name="SummaryKd" Grid.Row="0" Grid.Column="1" Margin="4,2,0,2" IsReadOnly="True" Text="{Binding Mode=OneWay, Path=[kd]}"></TextBox>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                            <TextBlock>K</TextBlock>
+                            <TextBlock FontSize="6" Margin="0,6,0,0">r</TextBlock>
+                            <TextBlock>, d</TextBlock>
+                            <TextBlock FontSize="6" Margin="0,0,0,6">-1</TextBlock>
+                        </StackPanel>
+                        <TextBox x:Name="SummaryKr" Grid.Row="1" Grid.Column="1" Margin="4,2,0,2" IsReadOnly="True"></TextBox>
+                        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+                            <TextBlock>t</TextBlock>
+                            <TextBlock FontSize="6" Margin="0,6,0,0">c</TextBlock>
+                            <TextBlock>, day</TextBlock>
+                        </StackPanel>
+                        <TextBox x:Name="SummaryTc" Grid.Row="2" Grid.Column="1" Margin="4,2,0,2" IsReadOnly="True"></TextBox>
+                        <TextBlock Grid.Row="3" Grid.Column="0">D</TextBlock>
+                        <TextBox x:Name="SummaryD" Grid.Row="3" Grid.Column="1" Margin="4,2,0,2" IsReadOnly="True"></TextBox>
+                        <TextBlock Grid.Row="4" Grid.Column="0">DO</TextBlock>
+                        <TextBox x:Name="SummaryDO" Grid.Row="4" Grid.Column="1" Margin="4,2,0,2" IsReadOnly="True"></TextBox>
+                    </Grid>
+                </GroupBox>
             </Grid>
-        </GroupBox>
-        <GroupBox x:Name="groupBox1" Header="River" Margin="0" Grid.Column="1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock>Flow, m<Run Typography.Variants="Superscript">3</Run>/3</TextBlock>
-                <TextBox x:Name="RiverFlow" Grid.Column="1" Margin="4,2,0,2"></TextBox>
-                <TextBlock Grid.Row="1">Ultimate BOD at 25℃, kg/d</TextBlock>
-                <TextBox x:Name="RiverUltimateBOD" Grid.Row="1" Grid.Column="1" Margin="4,2,0,2"></TextBox>
-                <TextBlock Grid.Row="2">DO, mg/L</TextBlock>
-                <TextBox x:Name="RiverDO" Grid.Row="2" Grid.Column="1" Margin="4,2,0,2"></TextBox>
-                <TextBlock Grid.Row="3">Temperature, ℃</TextBlock>
-                <TextBox x:Name="RiverTemperature" Grid.Row="3" Grid.Column="1" Margin="4,2,0,2"></TextBox>
-                <TextBlock Grid.Row="4" Grid.Column="0">Speed, m/s</TextBlock>
-                <TextBox x:Name="RiverSpeed" Grid.Row="4" Grid.Column="1" Margin="4,2,0,2"></TextBox>
-                <TextBlock Grid.Row="5" Grid.Column="0">Average depth, m</TextBlock>
-                <TextBox x:Name="RiverAverageDepth" Grid.Row="5" Grid.Column="1" Margin="4,2,0,2"></TextBox>
-                <TextBlock Grid.Row="6" Grid.Column="0">Bed-activity coefficient</TextBlock>
-                <TextBox x:Name="RiverBedActivityCoefficient" Grid.Row="6" Grid.Column="1" Margin="4,2,0,2"></TextBox>
-            </Grid>
-        </GroupBox>
-
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </Window>
